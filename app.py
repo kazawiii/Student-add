@@ -1,6 +1,5 @@
-from flask import Flask, render_template , request
+from flask import Flask, render_template, request
 import sqlite3
-
 
 app = Flask(__name__)
 db_local = 'student.db'
@@ -29,7 +28,7 @@ def addstudent():
     if request.method == 'GET':
         return render_template('add_student.html')
     else:
-        student_detail= (
+        student_detail = (
             request.form['firstname'],
             request.form['lastname'],
             request.form['address']
@@ -37,6 +36,7 @@ def addstudent():
         )
         insert_student(student_detail)
         return render_template('add_success.html')
+
 
 def insert_student(student_detail):
     cnxn = sqlite3.connect(db_local)
@@ -48,4 +48,4 @@ def insert_student(student_detail):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000)
